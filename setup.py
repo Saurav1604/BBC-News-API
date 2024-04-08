@@ -39,3 +39,39 @@ setup(
     },
     keywords=['bbc-news', 'bbc-global', 'bbc-api', 'bbc-news-api', 'bbc-api-wrapper', 'tahsin-project']
 )
+
+# Now, let's use the bbc-news package to fetch and save the news articles
+from bbc.news import BBC
+from datetime import datetime, timedelta
+
+# Initialize BBC News API client
+bbc = BBC()
+
+# Define the topics and keywords
+topics = {
+    "nuclear_energy": "nuclear energy",
+    "nuclear_weapon": "nuclear weapon"
+}
+
+# Define the date range for the last 5 years
+end_date = datetime.now()
+start_date = end_date - timedelta(days=5*365)
+
+# Function to fetch and save news articles for a given topic
+def fetch_and_save_articles(topic, keyword):
+    # Fetch news articles for the topic and keyword
+    articles = bbc.search(keyword, from_date=start_date, to_date=end_date, language="en")
+    
+    # Save the articles to a text file
+    filename = f"{topic}_articles.txt"
+    with open(filename, "w", encoding="utf-8") as file:
+        for article in articles:
+            # Write article title and content to the file
+            file.write(article.title + "\n")
+            file.write(article.content + "\n\n")
+
+    print(f"{len(articles)} articles on {topic} saved to {filename}")
+
+# Fetch and save news articles for each topic
+for topic, keyword in topics.items():
+    fetch_and_save_articles(topic, keyword)

@@ -1,3 +1,4 @@
+
 import flask
 from flask import Flask
 from requests_html import HTMLSession
@@ -11,7 +12,7 @@ import requests
 import functools
 import os
 
-open("/tmp/log.txt", "w").close()
+open("C:\\Users\\Others\\Documents\\log.txt", "w").close()
 
 
 # ================ LOGGING INITIATION ================
